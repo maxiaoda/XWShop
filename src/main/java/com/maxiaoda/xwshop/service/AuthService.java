@@ -1,6 +1,5 @@
 package com.maxiaoda.xwshop.service;
 
-import com.maxiaoda.xwshop.generate.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class AuthService {
     public void sendVerificationCode(String tel) {
         userService.createUserIfNotExist(tel);
         String correctCode = smsCodeService.sendSmsCode(tel);
-        verificationCheckService.addCode(tel,correctCode);
+        verificationCheckService.addCode(tel, correctCode);
 
     }
 }
