@@ -1,16 +1,15 @@
 package com.maxiaoda.xwshop.controller;
 
+import com.maxiaoda.xwshop.context.UserContext;
 import com.maxiaoda.xwshop.entity.TelAndCode;
+import com.maxiaoda.xwshop.entity.LoginResponse;
 import com.maxiaoda.xwshop.service.AuthService;
 import com.maxiaoda.xwshop.service.TelVerificationService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -46,5 +45,19 @@ public class AuthController {
 
         token.setRememberMe(true);
         SecurityUtils.getSubject().login(token);
+    }
+
+    @PostMapping("/logout")
+    public void logout() {
+        SecurityUtils.getSubject().logout();
+    }
+
+    @GetMapping("/status")
+    public Object loginStatus() {
+        if (UserContext.getCurrentUser() == null) {
+            return LoginResponse.notLogin();
+        }else {
+            return LoginResponse.login(UserContext.getCurrentUser());
+        }
     }
 }

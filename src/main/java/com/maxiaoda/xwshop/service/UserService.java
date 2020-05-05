@@ -20,11 +20,20 @@ public class UserService {
         user.setTel(tel);
         user.setCreatedAt(new Date());
         user.setUpdatedAt(new Date());
-        try{
+        try {
             userDao.insertUser(user);
-        }catch (PersistenceException e){
+        } catch (PersistenceException e) {
             return userDao.getUserByTel(tel);
         }
         return user;
+    }
+
+    /**
+     * 根据电话返回用户，如果用户不存在，返回null
+     * @param tel 用户电话
+     * @return 用户
+     */
+    public User getUserByTel(String tel) {
+        return userDao.getUserByTel(tel);
     }
 }
