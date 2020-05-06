@@ -4,6 +4,7 @@ import com.maxiaoda.xwshop.interceptor.UserLoginInterceptor;
 import com.maxiaoda.xwshop.service.ShiroRealmService;
 import com.maxiaoda.xwshop.service.UserService;
 import com.maxiaoda.xwshop.service.VerificationCheckService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -53,6 +54,8 @@ public class ShiroConfig implements WebMvcConfigurer {
     @Bean
     public SecurityManager securityManager(ShiroRealmService shiroRealmService) {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
+
+        SecurityUtils.setSecurityManager(defaultWebSecurityManager);
 
         //设置在某个区域内验权
         defaultWebSecurityManager.setRealm(shiroRealmService);
