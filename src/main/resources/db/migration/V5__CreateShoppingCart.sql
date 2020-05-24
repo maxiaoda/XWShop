@@ -1,10 +1,10 @@
-create table USER
+create table SHOPPING_CART
 (
     ID         bigint primary key auto_increment,
-    NAME       varchar(100),
-    TEL        varchar(20) unique,
-    AVATAR_URL varchar(1024),
-    ADDRESS    varchar(1024),
+    USER_ID    bigint,
+    GOODS_ID   bigint,
+    NUMBER     int,
+    STATUS     varchar(16),
     CREATED_AT timestamp not null default now(),
     UPDATED_AT timestamp not null default now()
-)
+);
